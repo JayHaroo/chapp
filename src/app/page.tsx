@@ -1,11 +1,11 @@
 import Image from "next/image";
+import { IoArrowForwardCircle } from "react-icons/io5";
+import Landing from "./components/landing";
 
 export default function Home() {
   return (
     <>
-      <div className="bg-[url(/img/bg.jpg)] bg-cover bg-center h-screen w-screen">
-        <div className="w-[450px] h-lvh bg-white rounded-md"></div>
-      </div>
+      <Landing />
     </>
   );
 }
