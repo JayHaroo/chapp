@@ -1,5 +1,6 @@
 import Link from "next/link";
-import Landing from "./components/landing";
+import Landing from "./landing";
+import Form from "./form/page";
 
 export default function Home() {
   return (
@@ -8,6 +9,11 @@ export default function Home() {
       <li>
         <Link href="/">
           <Landing />
+        </Link>
+      </li>
+      <li>
+        <Link href="/form">
+          <Form />
         </Link>
       </li>
      </ul>
