@@ -1,10 +1,16 @@
-import Image from "next/image";
+import Link from "next/link";
 import Landing from "./components/landing";
 
 export default function Home() {
   return (
     <>
-      <Landing />
+     <ul>
+      <li>
+        <Link href="/">
+          <Landing />
+        </Link>
+      </li>
+     </ul>
     </>
   );
 }
