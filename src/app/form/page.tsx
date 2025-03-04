@@ -69,8 +69,8 @@ export default function Form() {
   };
   
   return (
-    <div className="flex flex-col justify-center items-center mt-8 ">
-      <div className="flex justify-evenly items-center w-[100vh] mb-5 md:w-[80vh] ">
+    <div className="flex flex-col justify-center items-center mt-8 max-sm:justify-center max-sm:items-center">
+      <div className="flex justify-evenly items-center w-[100vh] mb-5 md:w-[80vh] max-sm:w-[50vh] max-sm:align-middle">
         <ConnectButton />
         <Link href="/" className="flex flex-row items-center cursor-pointer">
           <IoIosArrowBack size={30} color="white" />
@@ -78,9 +78,9 @@ export default function Form() {
         </Link>
       </div>
 
-      <div className="flex max-sm:flex-col max-md:flex-col ">
+      <div className="flex max-sm:flex-col max-md:flex-col max-sm:items-center">
         {/* Chat Section */}
-        <div className="h-[77vh] w-[100vh] rounded-2xl border-2 border-white m-5 p-4 text-center max-sm:w-[60vh]">
+        <div className="h-[77vh] w-[100vh] rounded-2xl border-2 border-white m-5 p-4 text-center max-sm:w-[40vh] max-sm:align-middle">
           <div className="h-[90%] overflow-y-auto">
             {messages.length > 0 ? (
               messages.map((msg, index) => (
@@ -114,7 +114,7 @@ export default function Form() {
         </div>
 
         {/* Connection Status */}
-        <div className="h-[77vh] w-[50vh] rounded-2xl border-2 border-white m-5 flex items-center justify-items-center">
+        <div className="h-[77vh] w-[50vh] rounded-2xl border-2 border-white m-5 flex items-center justify-items-center max-sm:w-[40vh] max-sm:h-[30vh]">
           {isConnected ? (
             <div>
               <p className="text-white text-center text-[2vh]">
