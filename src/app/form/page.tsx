@@ -5,9 +5,7 @@ import { IoIosArrowBack, IoMdSend } from "react-icons/io";
 import { useAccount } from "wagmi";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-
-const socket = new WebSocket("wss://helix-caterwauling-passenger.glitch.me"); // Replace with actual WebSocket server URL
-
+ // Replace with actual WebSocket server URL
 export default function Form() {
   const { address, isConnected } = useAccount();
   const [message, setMessage] = useState("");

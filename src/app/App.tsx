@@ -18,7 +18,6 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 import { ReactNode } from 'react';
-import Form from './form/page';
 
 const config = getDefaultConfig({
   appName: 'Chapp!',
