@@ -106,9 +106,11 @@ export default function Form() {
               ) : null}
             </div>
           ) : (
-            <p className="text-gray-400 text-center text-[2vh]">
-              Not connected!
-            </p>
+            <div className="flex flex-col text-center w-full">
+              <p className="text-gray-400 text-center align-middle content-center text-[2vh]">
+                Not connected!
+              </p>
+            </div>
           )}
         </div>
       </div>

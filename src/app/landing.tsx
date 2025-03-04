@@ -20,7 +20,7 @@ export default function Landing() {
           <div className={`text-[3rem] font-bold ${raleway.className}`}>Chapp!</div>
           <div className={`font-light ${jetbrainsMono.className}`}>Let`s talk unbounded.</div>
           <Link href="/form">
-            <IoArrowForwardCircle size={60} className="cursor-pointer"/>
+            <IoArrowForwardCircle size={60} className="cursor-pointer" title="Proceed"/>
           </Link>
         </div>
       </div>
