@@ -100,7 +100,7 @@ export default function Form() {
                     className="w-[80%] h-[5vh] border-2 border-white rounded-4xl p-5 mt-4 bg-black text-white flex justify-center"
                     placeholder="Type your nickname here..."
                     value={nickname}
-                    onChange={() => setNickname(this.value)}
+                    onChange={(e) => setNickname(e.target.value)}
                   />
                 </div>
               ) : null}
