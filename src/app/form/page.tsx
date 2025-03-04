@@ -3,24 +3,73 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { IoIosArrowBack, IoMdSend } from "react-icons/io";
 import { useAccount } from "wagmi";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { access } from "fs";
+
+const socket = new WebSocket("wss://helix-caterwauling-passenger.glitch.me"); // Replace with actual WebSocket server URL
 
 export default function Form() {
   const { address, isConnected } = useAccount();
   const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState<string[]>([]);
+  const [messages, setMessages] = useState<{ sender: string; text: string }[]>([]);
   const [checked, setChecked] = useState(false);
   const [nickname, setNickname] = useState("");
+  const [socket, setSocket] = useState<WebSocket | null>(null);
+
+  useEffect(() => {
+    const ws = new WebSocket("wss://helix-caterwauling-passenger.glitch.me");
+
+    ws.onopen = () => console.log("✅ WebSocket connected!");
+    
+    ws.onmessage = async (event) => {
+      console.log("📩 Raw message received:", event.data);
+      console.log("📩 Data type:", typeof event.data);
+    
+      if (event.data instanceof Blob) {
+        try {
+          const text = await event.data.text(); // Convert Blob to text
+          console.log("📩 Converted Blob to text:", text);
+          const newMessage = JSON.parse(text);
+          setMessages((prev) => [...prev, newMessage]);
+        } catch (error) {
+          console.error("❌ JSON parsing error from Blob:", error);
+        }
+      } else if (typeof event.data === "string") {
+        try {
+          const newMessage = JSON.parse(event.data);
+          setMessages((prev) => [...prev, newMessage]);
+        } catch (error) {
+          console.error("❌ JSON parsing error from string:", error);
+        }
+      } else {
+        console.error("❌ Unexpected data type:", event.data);
+      }
+    };
+    
+
+    ws.onerror = (error) => console.error("❌ WebSocket error:", error);
+    ws.onclose = () => console.log("❌ WebSocket disconnected");
+
+    setSocket(ws);
+
+    return () => ws.close(); // Cleanup on unmount
+  }, []); // Empty dependency array ensures it runs only once
 
   const sendMessage = () => {
-    if (message.trim()) {
-      setMessages((prev) => [...prev, message]);
-      setMessage(""); // Clear input after sending
+    if (socket && socket.readyState === WebSocket.OPEN) {
+      if (message.trim()) {
+        const msgObj = {
+          sender: checked && nickname ? nickname : address || "Anonymous",
+          text: message,
+        };
+        socket.send(JSON.stringify(msgObj));
+        setMessage(""); // Clear input after sending
+      }
+    } else {
+      console.error("⚠️ WebSocket not connected yet!");
     }
   };
-
+  
   return (
     <div className="flex flex-col justify-center items-center mt-8">
       <div className="flex justify-evenly items-center w-[100vh] mb-5">
@@ -41,12 +90,8 @@ export default function Form() {
                   key={index}
                   className="text-white text-left p-2 border-b border-gray-600"
                 >
-                  {checked ? (
-                    <p className="text-gray-400">{nickname}</p>
-                  ) : (
-                    <p className="text-gray-400">{address}</p>
-                  )}
-                  <p>{msg}</p>
+                  <p className="text-gray-400">{msg.sender}</p>
+                  <p>{msg.text}</p>
                 </div>
               ))
             ) : (
@@ -73,7 +118,7 @@ export default function Form() {
         {/* Connection Status */}
         <div className="h-[77vh] w-[50vh] rounded-2xl border-2 border-white m-5 flex items-center justify-items-center">
           {isConnected ? (
-            <div className="">
+            <div>
               <p className="text-white text-center text-[2vh]">
                 Connected with {address}
               </p>
@@ -83,11 +128,11 @@ export default function Form() {
                   type="checkbox"
                   checked={checked}
                   onChange={() => setChecked(!checked)}
-                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                 />
                 <label
-                  for="default-checkbox"
-                  class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                  htmlFor="default-checkbox"
+                  className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                 >
                   Use Nickname
                 </label>
