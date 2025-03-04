@@ -10,7 +10,9 @@ import { access } from "fs";
 export default function Form() {
   const { address, isConnected } = useAccount();
   const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState<string[]>([]); // Store multiple messages
+  const [messages, setMessages] = useState<string[]>([]);
+  const [checked, setChecked] = useState(false);
+  const [nickname, setNickname] = useState("");
 
   const sendMessage = () => {
     if (message.trim()) {
@@ -35,8 +37,16 @@ export default function Form() {
           <div className="h-[90%] overflow-y-auto">
             {messages.length > 0 ? (
               messages.map((msg, index) => (
-                <div key={index} className="text-white text-left p-2 border-b border-gray-600">
-                  {address} : {msg}
+                <div
+                  key={index}
+                  className="text-white text-left p-2 border-b border-gray-600"
+                >
+                  {checked ? (
+                    <p className="text-gray-400">{nickname}</p>
+                  ) : (
+                    <p className="text-gray-400">{address}</p>
+                  )}
+                  <p>{msg}</p>
                 </div>
               ))
             ) : (
@@ -52,16 +62,53 @@ export default function Form() {
               onChange={(e) => setMessage(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && sendMessage()} // Send on Enter
             />
-            <IoMdSend size={30} className="cursor-pointer mb-8 text-white" onClick={sendMessage} />
+            <IoMdSend
+              size={30}
+              className="cursor-pointer mb-8 text-white"
+              onClick={sendMessage}
+            />
           </div>
         </div>
 
         {/* Connection Status */}
-        <div className="h-[77vh] w-[50vh] rounded-2xl border-2 border-white m-5 flex items-center justify-center">
+        <div className="h-[77vh] w-[50vh] rounded-2xl border-2 border-white m-5 flex items-center justify-items-center">
           {isConnected ? (
-            <p className="text-white text-center text-[2vh]">Connected with {address}</p>
+            <div className="">
+              <p className="text-white text-center text-[2vh]">
+                Connected with {address}
+              </p>
+              <div className="mt-4 flex align-middle justify-center items-center">
+                <input
+                  id="default-checkbox"
+                  type="checkbox"
+                  checked={checked}
+                  onChange={() => setChecked(!checked)}
+                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                />
+                <label
+                  for="default-checkbox"
+                  class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                >
+                  Use Nickname
+                </label>
+              </div>
+
+              {checked ? (
+                <div className="flex self-center justify-center items-center">
+                  <input
+                    type="text"
+                    className="w-[80%] h-[5vh] border-2 border-white rounded-4xl p-5 mt-4 bg-black text-white flex justify-center"
+                    placeholder="Type your nickname here..."
+                    value={nickname}
+                    onChange={(e) => setNickname(e.target.value)}
+                  />
+                </div>
+              ) : null}
+            </div>
           ) : (
-            <p className="text-gray-400 text-center text-[2vh]">Not connected!</p>
+            <p className="text-gray-400 text-center text-[2vh]">
+              Not connected!
+            </p>
           )}
         </div>
       </div>
