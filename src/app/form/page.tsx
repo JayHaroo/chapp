@@ -69,8 +69,8 @@ export default function Form() {
   };
   
   return (
-    <div className="flex flex-col justify-center items-center mt-8">
-      <div className="flex justify-evenly items-center w-[100vh] mb-5">
+    <div className="flex flex-col justify-center items-center mt-8 ">
+      <div className="flex justify-evenly items-center w-[100vh] mb-5 md:w-[80vh] ">
         <ConnectButton />
         <Link href="/" className="flex flex-row items-center cursor-pointer">
           <IoIosArrowBack size={30} color="white" />
@@ -78,9 +78,9 @@ export default function Form() {
         </Link>
       </div>
 
-      <div className="flex">
+      <div className="flex max-sm:flex-col max-md:flex-col ">
         {/* Chat Section */}
-        <div className="h-[77vh] w-[100vh] rounded-2xl border-2 border-white m-5 p-4 text-center">
+        <div className="h-[77vh] w-[100vh] rounded-2xl border-2 border-white m-5 p-4 text-center max-sm:w-[60vh]">
           <div className="h-[90%] overflow-y-auto">
             {messages.length > 0 ? (
               messages.map((msg, index) => (
