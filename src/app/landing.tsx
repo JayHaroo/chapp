@@ -1,3 +1,4 @@
+"use client";
 
 import { IoArrowForwardCircle } from "react-icons/io5";
 import { JetBrains_Mono, Raleway } from "next/font/google";
