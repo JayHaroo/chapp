@@ -15,7 +15,7 @@ const jetbrainsMono = JetBrains_Mono({
 
 export default function Landing() {
   return (
-    <div className="bg-[url(/img/bg.png)] bg-cover bg-center h-screen w-screen max-sm:justify-items-center max-sm:content-center">
+    <div className="bg-[url(/img/bg.webp)] bg-cover bg-center h-screen w-screen max-sm:justify-items-center max-sm:content-center">
       <div className="w-[450px] h-lvh bg-white rounded-md text-black text-center flex flex-col items-center justify-center max-sm:w-[35vh] max-sm:h-[60vh] max-sm:rounded-3xl">
         <div className={`text-[3rem] font-bold ${raleway.className}`}>Chapp!</div>
         <div className={`font-light ${jetbrainsMono.className}`}>Let’s talk unbounded.</div>
