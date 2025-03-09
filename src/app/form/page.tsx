@@ -117,7 +117,7 @@ export default function Form() {
         <div className="h-[77vh] w-[50vh] rounded-2xl border-2 border-white m-5 flex items-center justify-items-center max-sm:w-[40vh] max-sm:h-[30vh]">
           {isConnected ? (
             <div>
-              <p className="text-white text-center text-[10px]">
+              <p className="text-white text-center text-[12px]">
                 Connected with {address}
               </p>
               <div className="mt-4 flex align-middle justify-center items-center">
