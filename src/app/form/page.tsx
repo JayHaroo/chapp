@@ -117,7 +117,7 @@ export default function Form() {
         <div className="h-[77vh] w-[50vh] rounded-2xl border-2 border-white m-5 flex items-center justify-items-center max-sm:w-[40vh] max-sm:h-[30vh]">
           {isConnected ? (
             <div>
-              <p className="text-white text-center text-[2vh]">
+              <p className="text-white text-center text-[10px]">
                 Connected with {address}
               </p>
               <div className="mt-4 flex align-middle justify-center items-center">
@@ -140,7 +140,7 @@ export default function Form() {
                 <div className="flex self-center justify-center items-center">
                   <input
                     type="text"
-                    className="w-[80%] h-[5vh] border-2 border-white rounded-4xl p-5 mt-4 bg-black text-white flex justify-center"
+                    className="w-[80%] h-[5vh] border-2 border-white rounded-4xl p-5 mt-4 mb-3 bg-black text-white flex justify-center"
                     placeholder="Type your nickname here..."
                     value={nickname}
                     onChange={(e) => setNickname(e.target.value)}
